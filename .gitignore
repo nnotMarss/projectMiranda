@@ -1,3 +1,7 @@
+# MFC
+*.dbg.mfc
+_debug_/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
