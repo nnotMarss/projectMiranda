@@ -1,0 +1,17 @@
+$<1.3.1>
+` 
+` Miranda Folder Configuration.
+` DO NOT MODIFY UNLESS YOU KNOW
+` WHAT YOU'RE DOING!
+` You have been warned.
+` 
+[s~miranda.folder.cfg]
+{sB~isApex/TRUE}
+{sS~path/!\_system_.fld}
+{bF~createdBy/Bvd9swcmjr1}
+[e~miranda.folder.cfg]
+[s~miranda.folder.dsp]
+{sS~name/_system_}
+{sS~date/01-01-1970}
+{sS~time/12:01 AM}
+[e~miranda.folder.dsp]
