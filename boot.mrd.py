@@ -21,7 +21,6 @@ def cons():
             pass
         mrd.function.run_func(func.lower()+".pyi", args)
 
-        pass
     except KeyboardInterrupt:
         mrd.log("WARN", "EXIT CODE: KEYBOARD INTERRUPTED")
         exit()
