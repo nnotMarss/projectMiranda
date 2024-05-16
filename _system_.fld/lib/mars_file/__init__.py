@@ -1,8 +1,11 @@
 import base64
 import base58
+
+
 class _:
     version = '1.3.1'
     supported = ['1.3', '1.3.1', '1.3.0.2.20.24V11P', '1.3.1.0.43.24V12T']
+
 
 class Section:
     def __init__(self, name):
@@ -12,10 +15,12 @@ class Section:
     def add_entry(self, entry):
         self.entries.append(entry)
 
+
 class Entry:
     def __init__(self, ident, value):
         self.ident = ident
         self.value = value
+
 
 def parse(filePathP): 
     """

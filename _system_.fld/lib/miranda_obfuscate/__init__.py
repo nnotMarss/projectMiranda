@@ -4,7 +4,7 @@ def Code(inputText=""):
         "e": "je", "k": "ne", "b": "fe", "h": "ke", "t": "te", "d": "ja", 
         "g": "ka", "s": "ta", "q": "se", "p": "sa", "u": "tu", "z": "ge", 
         "v": "za", "w": "ze", "x": "zu", "y": "ga", "c": "fu", "i": "ku", 
-        "o": "ru", "l": "nu", "natu": "ju", "tatu": "su", "rje": "re"
+        "o": "ru", "l": "nu", "n`atu": "ju", "tatu": "su", "rje": "re"
     }
 
     inputText = inputText.lower()
