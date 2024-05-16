@@ -1,7 +1,7 @@
 # MFC
 *.dbg.*
 _debug_*/
-*.mrd.*
+#*.mrd.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -23,7 +23,7 @@ eggs/
 lib64/
 parts/
 sdist/
-var/
+#var/
 wheels/
 share/python-wheels/
 *.egg-info/
