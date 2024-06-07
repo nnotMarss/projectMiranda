@@ -10,11 +10,11 @@ def parent(directory=os.getcwd(), levels=1):
 
 
 sys.path.append(parent())
-import miranda_folder  # noqa: E402
+import miranda_folder  # noqa
 
 
 def log(action, description):
-    id_path = os.path.join(miranda_folder.root(), "_system_.fld", "var", "ID.var")
+    id_path = os.path.join(miranda_folder.root(), "_system_.fld", "libdata", "miranda", "ID.var")
     id_ = int(open(id_path, "r").read())
     now = datetime.now()
     datetime_str = now.strftime("%d-%m-%Y %I:%M:%S%p")
@@ -25,14 +25,15 @@ def log(action, description):
 
 
 def clear(d=False):
-    id_path = os.path.join(miranda_folder.root(), "_system_.fld", "var", "ID.var")
+    id_path = os.path.join(miranda_folder.root(), "_system_.fld", "libdata", "miranda", "ID.var")
     id_file = int(open(id_path, "r").read())
     path = os.path.join(miranda_folder.root(), "_logs_.fld")
     pattern = re.compile(r"_log_ID\d+_.log$")
     for filename in os.listdir(path):
         if pattern.match(filename) and filename != f"_log_ID{id_file}_.log":
             f_path = os.path.join(path, filename)
+            fake_path = os.path.join("~", "_logs_.fld", filename)
             os.remove(f_path)
             log("INFO", "DELETED FILE: %s" % f_path)
             if d:
-                print(":: Removed file: %s" % f_path)
+                print(":: Removed file: %s" % fake_path)

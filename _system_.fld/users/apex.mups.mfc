@@ -1,0 +1,30 @@
+$<2.0>
+`
+` Miranda User Profile Service (MUPS) - Version 1.0.0
+`
+` DO NOT EDIT/DELETE THIS FILE
+` UNLESS YOU KNOW WHAT YOU'RE DOING!
+`
+`
+[s~miranda.user.profile]
+`
+{sS~name/apex}
+{sL~date_created/2000;01;01;12;00;01;AM}
+{bC~unknown/MlEyaDJiV05ac2Rmdko4RTdud3RKOHRXNDNSTA==}
+`
+[e~miranda.user.profile]
+`
+`
+[s~miranda.user.policies]
+`
+{sB~miranda.file.execute/TRUE}
+{sB~miranda.file.read/TRUE}
+{sB~miranda.log.clear/TRUE}
+{sB~tanami.settings.view/TRUE}
+{sB~tanami.settings.change/TRUE}
+{sB~tanami.settings.change_sys_locked/TRUE}
+{sB~tanami.net.connect/TRUE}
+{sB~tanami.net.post/TRUE}
+{sB~miranda.debug.grant/TRUE}
+`
+[e~miranda.user.policies]

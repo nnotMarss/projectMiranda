@@ -1,8 +1,11 @@
 import base64
 import base58
-class _:
-    version = 'deimos.alpha.1'
-    supported = ['deimos.alpha.1']
+
+
+class data:
+    version = '1.3.1'
+    supported = ['1.3', '1.3.1', '1.3.1.1', '1.3.0.2.20.24V11P', '1.3.1.0.43.24V12T']
+
 
 class Section:
     def __init__(self, name):
@@ -12,56 +15,51 @@ class Section:
     def add_entry(self, entry):
         self.entries.append(entry)
 
+
 class Entry:
     def __init__(self, ident, value):
         self.ident = ident
         self.value = value
 
-def parse(filePathP): 
-    """
-    Args:
-        filePathP (str): Relative path to a MFC/MFC-Stylized file.
 
-    Returns:
-        data: Data block from MFC/MFC-Stylized file.
-    """
+def parse(file_path_parse): 
     sections = []
     current_section = None
 
-    with open(filePathP, 'r') as file:
+    with open(file_path_parse, 'r') as file:
         for line_number, line in enumerate(file, start=1):
             line = line.strip()
 
-            if "`" in line and not line.startswith('#`'):
-                    raise ValueError("\n---\nERROR: Invalid comment: \'%s\' in line %s\n---" % (line, line_number))
-            elif line.startswith('#`'):
+            if "`" in line and not line.startswith('`'):
+                    raise ValueError("\n---\nERROR: Invalid comment: \'%s\' in line %s\n---" % (line, line_number))  # noqa
+            elif line.startswith('`'):
                 pass
-            elif line.startswith("#$<") and line.endswith(">"):
-                extracted_version = line.split('$<')[1].split('>')[0]
-                if extracted_version not in _.supported:
-                    raise ValueError("\n---\nERROR: Unsupported file version: %s.\nSupported file versions: %s\nCurrent module version: %s\n---" % (extracted_version, _.supported, _.version))
-                # if line_number == 1:
-                # else:
-                #     raise ValueError("\n---\nERROR: Invalid version tag position: \'%s\' in line %s. Should be 1.\n---" % (line, line_number))
-            elif line.startswith('#['):
-                if line.startswith('#[e~'):
-                    end_section_name = line.split('#[e~')[1].split(']')[0]
+            elif line.startswith("$<") and line.endswith(">"):
+                if line_number == 1:
+                    extracted_version = line.split('$<')[1].split('>')[0]
+                    if extracted_version not in data.supported:
+                        raise ValueError("\n---\nERROR: Unsupported file version: %s.\nSupported file versions: %s\nCurrent module version: %s\n---" % (extracted_version, _.supported, _.version))  # noqa
+                else:
+                    raise ValueError("\n---\nERROR: Invalid version tag position: \'%s\' in line %s. Should be 1.\n---" % (line, line_number))
+            elif line.startswith('['):
+                if line.startswith('[e~'):
+                    end_section_name = line.split('[e~')[1].split(']')[0]
                     if current_section.name == end_section_name:
                         current_section = None
                     else:
-                        raise ValueError("\n---\nERROR: Missing/Mismatched header: \'%s\' in line %s\n---" % (line, line_number))
+                        raise ValueError("\n---\nERROR: Missing/Mismatched header: \'%s\' in line %s\n---" % (line, line_number))  # noqa
                         
-                elif line.startswith('#[s~'):
+                elif line.startswith('[s~'):
                     if current_section is None:
-                        section_name = line.split('#[s~')[1][:-1]
+                        section_name = line.split('[s~')[1][:-1]
                         current_section = Section(section_name)
                         sections.append(current_section)
 
-            elif line.startswith('#{'):
+            elif line.startswith('{'):
                 if current_section is None:
                     raise ValueError("\n---\nERROR: Invalid formatting: \'%s\' in line %s\n---" % (line, line_number))
 
-                ident, rest = line[2:].split('~')
+                ident, rest = line[1:].split('~')
                 name, value = rest.split('/')
                 value = value[:-1]
 
@@ -72,7 +70,14 @@ def parse(filePathP):
                 elif ident == 'sF':
                     entry = Entry(name, float(value))
                 elif ident == "sB":
-                    entry = Entry(name, bool(value))
+                    value = value.upper()
+                    if value == "TRUE":
+                        value = True
+                    elif value == "FALSE":
+                        value = False
+                    else:
+                        raise ValueError("\n---\nERROR: Invalid bool: \'%s\' in line %s\n---" % (line, line_number))
+                    entry = Entry(name, value)
                 elif ident == 'sL':
                     value = value.split(';')
                     entry = Entry(name, value)
@@ -97,17 +102,25 @@ def parse(filePathP):
                     raise ValueError("\n---\nERROR: Invalid identification: \'%s\' in line %s\n---" % (ident, line_number))
                 if current_section is None:
                     current_section = Section(None)
-                    current_section.add_header(current_section)
                 current_section.add_entry(entry)
-            elif line.startswith("#@<end>"):
-                break   
-            # else:
-            #     raise ValueError("\n---\nERROR: Invalid syntax: \'%s\' in line %s\n---" % (line, line_number))
+            else:
+                raise ValueError("\n---\nERROR: Invalid syntax: \'%s\' in line %s\n---" % (line, line_number))
     return sections
+
 
 class lookUp:
     def _(file: str, sectionName: str, entryName: str):
         data = parse(file)
+        for section in data:
+            if section.name == sectionName:
+                for entry in section.entries:
+                    if isinstance(entry, Entry) and entry.ident == entryName:
+                        if entry.value is None or entry.value == "None":
+                            raise ValueError("\n---\nERROR: Value is None!\n---")
+                        else:
+                            return entry.value
+    
+    def __(data, sectionName: str, entryName: str):
         for section in data:
             if section.name == sectionName:
                 for entry in section.entries:
@@ -127,7 +140,7 @@ class lookUp:
         return float(lookUp._(file, sectionName, entryName))
     
     def sB(file: str, sectionName: str, entryName: str):
-        return bool(lookUp._(file, sectionName, entryName))
+        return lookUp._(file, sectionName, entryName)
 
     def sL(file: str, sectionName: str, entryName: str):
         return lookUp._(file, sectionName, entryName)
@@ -189,3 +202,54 @@ class lookUp:
                                 return entry.value
                             except UnicodeDecodeError:
                                 raise ValueError("\n---\nERROR: Invalid BASEURL: \'%s\'" % entry.value)
+
+def override(filePathO: str, section_name: str, entry_name: str, new_value):
+    with open(filePathO, 'r') as file:
+        lines = file.readlines()
+    entry_found = False
+
+    for i, line in enumerate(lines):
+        if line.strip().startswith('{') and entry_name in line:
+            if line.split("~")[0][-1:] == 'bS':
+                try:
+                    new_value = base64.b64encode(new_value)
+                    lines[i] = "{%s~%s/%s}\n" % (line.split("~")[0][-1:],entry_name,new_value.decode('UTF-8'))
+                except TypeError:
+                    raise ValueError("\n---\nERROR: Not a valid BASE64: %s" % new_value)
+                entry_found = True
+                break
+            elif line.split("~")[0][-1:] == 'bF':
+                try:
+                    new_value = base58.b58encode(new_value)
+                    lines[i] = "{%s~%s/%s}\n" % (line.split("~")[0][-1:],entry_name,new_value.decode('UTF-8'))
+                except TypeError:
+                    raise ValueError("\n---\nERROR: Not a valid BASE58: %s" % new_value)
+                entry_found = True
+                break
+            elif line.split("~")[0][-1:] == 'bU':
+                try:
+                    new_value = "h"+base64.b64encode(new_value)
+                    lines[i] = "{%s~%s/%s}\n" % (line.split("~")[0][-1:],entry_name,new_value.decode('UTF-8'))
+                except TypeError:
+                    raise ValueError("\n---\nERROR: Not a valid BASEURL: %s" % new_value)
+                entry_found = True
+                break
+            
+            elif line.split("~")[0][-1:] == 'sL':
+                mars_list = ""
+                for obj in new_value:
+                    mars_list = mars_list+obj+";"
+                lines[i] = "{%s~%s/%s}\n" % (line.split("~")[0][-1:],entry_name,mars_list[:-1])
+                entry_found = True
+                break
+            else:
+                lines[i] = "{%s~%s/%s}\n" % (line.split("~")[0][-1:],entry_name,new_value)
+                entry_found = True
+                break
+                
+
+    if entry_found:
+        with open(filePathO, 'w') as file:
+            file.writelines(lines)
+    else:
+        raise ValueError("\n---\nERROR: Entry mismatched/missing!\n---")

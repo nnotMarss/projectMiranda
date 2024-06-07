@@ -5,5 +5,6 @@ if len(sys.argv) > 1:
     args = sys.argv[1].split()
 sys.path.append(os.path.join(os.getcwd(), "_system_.fld", "lib", ""))
 import miranda_logger as ml  # noqa
-print(args)
-ml.clear(False if '-S' in args else True) #doesnt work for some reason?
+ml.clear(True if '-D' in args else False)
+ml.log("INFO","%s: CLEARED LOGS" % name)
+print(":: Operation completed.")

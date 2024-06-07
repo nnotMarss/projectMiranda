@@ -1,0 +1,25 @@
+{
+     "EN": {
+         "locale.str": "English (English)",
+
+         "mars_bool_invalid.str": "\n---\nERROR: Invalid bool: '%s' in line %s\n---",
+         "mars_base58_invalid.str": "\n---\nERROR: Invalid BASE58: '%s' in line %s\n---",
+         "mars_base64_invalid.str": "\n---\nERROR: Invalid BASE64: '%s' in line %s\n---",
+         "mars_base_invalid.str": "\n---\nERROR: Invalid CODE: '%s' in line %s\n---",
+         "mars_id_invalid.str": "\n---\nERROR: Invalid identification: '%s' in line %s\n---",
+         "mars_comment_invalid.str": "\n---\nERROR: Invalid comment: '%s' in line %s\n---",
+         "mars_support_invalid.str": "\n---\nERROR: Unsupported file version: %s.\nSupported file versions: %s\nCurrent module version: %s\n---",
+         "mars_tag_invalid.str": "\n---\nERROR: Invalid version tag position: '%s' in line %s. Should be 1.\n---",
+
+         "feedback_sent.str": "Your feedback was sent. Thank you! If you made an error, make a follow-up with your message ID (%s) included!",
+         "feedback_fail_module.str": "Failed to sent. Status code:",
+         "feedback_fail_function.str": "There was an error, your feedback wasn't sent!\n:: Error code:",
+         "feedback_e621_nsfw_got.str": "[DEBUG] File received successfully!",
+
+         "tmp_ignore": "Below are old unused strings. TBR. -Mars",
+         "nothing_done.str": "No settings affected.",
+         "welcome_new.str": "Welcome to code\u00d8S!",
+         "language.str": "Please one language out of the list below:"
+     },
+     "PL": {}
+}

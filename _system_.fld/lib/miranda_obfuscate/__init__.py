@@ -1,4 +1,4 @@
-def Code(inputText=""):
+def code(input_text=""):
     replacements = {
         "f": "ju", "a": "fa", "r": "su", "m": "ra", "n": "re", "j": "na", 
         "e": "je", "k": "ne", "b": "fe", "h": "ke", "t": "te", "d": "ja", 
@@ -7,12 +7,13 @@ def Code(inputText=""):
         "o": "ru", "l": "nu", "n`atu": "ju", "tatu": "su", "rje": "re"
     }
 
-    inputText = inputText.lower()
+    input_text = input_text.lower()
     for key, value in replacements.items():
-        inputText = inputText.replace(key, value)
-    return inputText
+        input_text = input_text.replace(key, value)
+    return input_text
 
-def Decode(inputText=""):
+
+def decode(input_text=""):
     replacements = {
         "fa": "a", "fe": "b", "fu": "c", "ja": "d", "je": "e", "ju": "f", 
         "ka": "g", "ke": "h", "ku": "i", "na": "j", "ne": "k", "nu": "l", 
@@ -21,13 +22,13 @@ def Decode(inputText=""):
         "ga": "y", "ge": "z"
     }
 
-    inputText = inputText.lower()
+    input_text = input_text.lower()
     for key, value in replacements.items():
-        inputText = inputText.replace(key, value)
-    return inputText
+        input_text = input_text.replace(key, value)
+    return input_text
 
 
-def Code2(inputText=""):
+def code_2(input_text=""):
     replacements = {
         "f": "(", "a": "=", "r": ",", "m": "$", "n": "\"", "j": "'", 
         "e": "*", "k": "#", "b": "~", "h": "}", "t": ".", "d": "/", 
@@ -36,12 +37,13 @@ def Code2(inputText=""):
         "o": "°", "l": "@"
     }
 
-    inputText = inputText.lower()
+    input_text = input_text.lower()
     for key, value in replacements.items():
-        inputText = inputText.replace(key, value)
-    return inputText
+        input_text = input_text.replace(key, value)
+    return input_text
 
-def Decode2(inputText=""):
+
+def decode_2(input_text=""):
     replacements = {
         "(": "f", "=": "a", ",": "r", "$": "m", "\"": "n", "'": "j",
         "*": "e", "#": "k", "~": "b", "}": "h", ".": "t", "/": "d",
@@ -50,7 +52,7 @@ def Decode2(inputText=""):
         "°": "o", "@": "l"
     }
 
-    inputText = inputText.lower()
+    input_text = input_text.lower()
     for key, value in replacements.items():
-        inputText = inputText.replace(key, value)
-    return inputText
+        input_text = input_text.replace(key, value)
+    return input_text

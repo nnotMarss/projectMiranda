@@ -1,0 +1,7 @@
+$<2.0> ` nielegalny comentarz (wszystko po >>`<< jest ignorowane)
+$<PERM_LOCKED>
+` File created by script on 04-06-2024 06:08:15PM.
+[s~Testing_the_new_functions]
+{sS~main/I'm testing the new stuff I can do with this command, how fun!}
+{sF~version/2.0}
+[e~Testing_the_new_functions]
